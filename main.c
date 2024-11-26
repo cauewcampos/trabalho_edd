@@ -3,6 +3,20 @@
 
 int arrayNums[2500];
 
+char palavras[100][20] = {
+    "Ana", "Pedro", "Lucas", "Maria", "Joao", "Camila", "Carlos", "Julia", "Paulo", "Fernanda",
+    "Marcos", "Clara", "Gabriel", "Sofia", "Ricardo", "Helena", "Rafael", "Isabela", "Leonardo", "Larissa",
+    "Eduardo", "Beatriz", "Thiago", "Vitoria", "Felipe", "Lucia", "Bruno", "Alice", "Roberto", "Patricia",
+    "Andre", "Carolina", "Vinicius", "Mariana", "Renato", "Leticia", "Gustavo", "Gabriela", "Arthur", "Viviane",
+    "Diego", "Renata", "Daniel", "Sara", "Rodrigo", "Tatiana", "Alexandre", "Luana", "Samuel", "Natalia",
+    "Matheus", "Rafaela", "Igor", "Veronica", "Augusto", "Bruna", "Caio", "Elisa", "Mauricio", "Carla",
+    "Henrique", "Erica", "Antonio", "Clarissa", "Fabio", "Vanessa", "Otavio", "Tatiane", "Marcelo", "Cecilia",
+    "Miguel", "Isadora", "Cesar", "Joana", "Wilson", "Barbara", "Elias", "Manuela", "Flavio", "Estela",
+    "Danilo", "Aline", "Hugo", "Yasmin", "Josue", "Olivia", "Vitor", "Ingrid", "Luiz", "Raquel",
+    "Jorge", "Bianca", "Francisco", "Regina", "Bernardo", "Monica", "Melancia", "Abacaxi", "Laranja", "Uva",
+    "Manga", "Morango", "Pera", "Banana", "Caju", "Limao", "Mamão", "Tomate", "Coco", "Amora"
+};
+
 // vetor inicializado com 100 nomes diferentes.
 char nomes[100];
 
