@@ -3,6 +3,7 @@
 
 int arrayNums[2500];
 
+// vetor inicializado com 100 nomes diferentes.
 char palavras[100][20] = {
     "Ana", "Pedro", "Lucas", "Maria", "Joao", "Camila", "Carlos", "Julia", "Paulo", "Fernanda",
     "Marcos", "Clara", "Gabriel", "Sofia", "Ricardo", "Helena", "Rafael", "Isabela", "Leonardo", "Larissa",
@@ -17,8 +18,6 @@ char palavras[100][20] = {
     "Manga", "Morango", "Pera", "Banana", "Caju", "Limao", "Mamão", "Tomate", "Coco", "Amora"
 };
 
-// vetor inicializado com 100 nomes diferentes.
-char nomes[100];
 
 // função para criar um vetor com 2500 numeros aleatorios.
 void criarNum(){
