@@ -1,7 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int arrayNums[2500];
+int arrayNums1[2500];
+int arrayNums2[2500];
+int arrayNums3[2500];
+int arrayNums4[2500];
+double timeInsertion;
+double timeQuick;
+double timeBubble;
+double timeSelection;
 
 // vetor inicializado com 100 nomes diferentes.
 char palavras[100][20] = {
@@ -22,9 +29,12 @@ char palavras[100][20] = {
 // função para criar um vetor com 2500 numeros aleatorios.
 void criarNum(){
     for(int i=0; i<2500; i++){
-    arrayNums[i] = rand() % 2500;
+    arrayNums1[i],arrayNums2[i],arrayNums3[i],arrayNums4[i]= rand() % 2500;
     }
 }
+
+// METODOS DE ORDENAÇÃO
+
 
 
 
