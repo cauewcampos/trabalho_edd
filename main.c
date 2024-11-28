@@ -1,39 +1,18 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-#include <ctype.h>
 #include <time.h>
+#include <string.h>
 
-void selectionSortNumeros(int v[], int n) {
-    for (int i = 0; i < n; i++) {
-        int index_menor = i;
-        for (int j = i + 1; j < n; j++) {
-            if (v[j] < v[index_menor])
-                index_menor = j;
-        }
-        int aux = v[i];
-        v[i] = v[index_menor];
-        v[index_menor] = aux;
-    }
-}
+int arrayNums1[100000];
+int arrayNums2[100000];
+int arrayNums3[100000];
+int arrayNums4[100000];
+double timeInsertion = 0;
+double timeQuick = 0;
+double timeBubble = 0;
+double timeSelection= 0;
 
-void selectionSortPalavras(char arr[][50], int n) {
-    for (int i = 0; i < n - 1; i++) {
-        int index_menor = i;
-        for (int j = i + 1; j < n; j++) {
-            if (strcmp(arr[j], arr[index_menor]) < 0) {
-                index_menor = j;
-            }
-        }
-        char temp[50];
-        strcpy(temp, arr[i]);
-        strcpy(arr[i], arr[index_menor]);
-        strcpy(arr[index_menor], temp);
-    }
-}
-
-int qntdNum = 100000;
-int arrayNums[100000];
+// vetor inicializado com 100 nomes diferentes.
 char palavras[8000][800] = {
     "amor", "brisa", "chuva", "dado", "energia",
     "felicidade", "garrafa", "história", "infinito", "jasmim",
@@ -662,46 +641,153 @@ char palavras[8000][800] = {
     "diamante", "elétrico", "fumaça", "gelo", "halo"
 };
 
-// Função para criar números aleatórios
-void criarNum() {
-    for (int i = 0; i < qntdNum; i++) {
-        arrayNums[i] = rand() % qntdNum;
+// função para criar um vetor com 50000 numeros aleatorios.
+void criarNum(){
+    for(int i = 0; i < 100000; i++){
+        int num = rand() % 100000;
+        arrayNums1[i] = num;
+        arrayNums2[i] = num;
+        arrayNums3[i] = num;
+        arrayNums4[i] = num;
     }
 }
 
-int main() {
-    printf("---------------------------------------------------------------------------\n");
-    printf("Voce deseja testar os metodos de ordenacao com numeros ou palavras?\n");
-    printf("1 - Numeros\n2 - Palavras\n3 - Sair\n");
-    printf("---------------------------------------------------------------------------\n");
-    int resp;
+// METODOS DE ORDENAÇÃO PARA NUMEROS
+void insertionSort(int vet[], int tam) {
+
+    clock_t start = clock();
+
+    int i, j, aux;
+        for (i = 1; i < tam; i++){
+            aux = vet[i];
+            j = i - 1;
+
+            while((j >= 0) && (aux < vet[j])){
+                vet[j+1] = vet[j];
+                j--;
+            }
+            vet[j+1]= aux;
+        }
+
+    clock_t end = clock();
+    timeInsertion = (double)(end - start) / CLOCKS_PER_SEC;
+
+}
+
+void selectionSort(int vet[], int tam) {
+
+    clock_t start = clock();
+
+    for (int i = 0; i < tam; i++) {
+        int index_menor = i;
+        for (int j = i + 1; j < tam; j++) {
+            if (vet[j] < vet[index_menor])
+                index_menor = j;
+        }
+        int aux = vet[i];
+        vet[i] = vet[index_menor];
+        vet[index_menor] = aux;
+    }
+
+    clock_t end = clock();
+    timeSelection = (double)(end - start) / CLOCKS_PER_SEC;
+}
+
+void bubbleSort(int vet[], int tam) {
+
+    clock_t start = clock();
+
+    int i, j, aux;
+    for (i = 1; i < tam; i++) {
+        for (j = 0; j < tam - 1; j++) {
+            if (vet[j] > vet[j + 1]) {
+                aux = vet[j];
+                vet[j] = vet[j + 1];
+                vet[j + 1] = aux;
+            }
+        }
+    }
+
+    clock_t end = clock();
+    timeBubble = (double)(end - start) / CLOCKS_PER_SEC;
+}
+
+// METODOS DE ORDENAÇÃO PARA STRING
+void selectionSortWords(char vet[][800], int tam) {
+
+    clock_t start = clock();
+
+    for (int i = 0; i < tam - 1; i++) {
+        int index_menor = i;
+        for (int j = i + 1; j < tam; j++) {
+            if (strcmp(vet[j], vet[index_menor]) < 0) {
+                index_menor = j;
+            }
+        }
+        char temp[800];
+        strcpy(temp, vet[i]);
+        strcpy(vet[i], vet[index_menor]);
+        strcpy(vet[index_menor], temp);
+    }
+
+    clock_t end = clock();
+    timeSelection = (double)(end - start) / CLOCKS_PER_SEC;
+}
+
+// MOSTRAR OS TEMPOS
+void showTimes(double x, double y,double z, double a) {
+        printf(" ___________________________________ \n");
+        printf("|       TEMPOS DE EXECUCAO          |\n");
+        printf("| Insertion Sort: %f segundos |\n", x);
+        printf("| Selection Sort: %f segundos |\n", y);
+        printf("| Bubble Sort   : %f segundos |\n", z);
+        printf("| Quick Sort    : %f segundos |\n", a);
+        printf(" ___________________________________ \n\n");
+        timeInsertion = 0;
+        timeQuick = 0;
+        timeBubble = 0;
+        timeSelection= 0;
+}
+
+
+
+int main () {
+
+    int resp = 0;
+
+    while(resp!=3){
+    printf("======================================================================\n");
+    printf(" Voce deseja testar os metodos de ordenacao com numeros ou palavras?\n");
+    printf(" 1 - Numeros\n 2 - Palavras\n 3 - Sair\n");
+    printf("======================================================================\n");
     printf("Insira um numero: ");
     scanf("%d", &resp);
 
-    if (resp == 1) {
-        printf("Criando uma array de numeros aleatorios...\n");
-        criarNum();
 
-        clock_t start = clock();
-        selectionSortNumeros(arrayNums, qntdNum);
-        clock_t end = clock();
-
-        double elapsed_time = ((double)(end - start)) / CLOCKS_PER_SEC;
-        printf("Tempo de execucao do Selection Sort para numeros: %.6f segundos\n", elapsed_time);
-
-    } else if (resp == 2) {
-        clock_t start = clock();
-        selectionSortPalavras(palavras, 8000);  // Algoritmo de ordenação
-        clock_t end = clock();
-        double tempo_execucao = (double)(end - start) / CLOCKS_PER_SEC;
-        printf("Tempo de execucao do Selection Sort para palavras: %.6f segundos\n", tempo_execucao);
+    if(resp==1){
+            printf("\n");
+            printf("Criando uma ordem de numeros aleatorios...\n\n");
+            criarNum();
+            insertionSort(arrayNums2,100000);
+            printf("Ordenando os numeros...\n\n");
+            insertionSort(arrayNums1,100000);
+            selectionSort(arrayNums2,100000);
+            bubbleSort(arrayNums1,100000);
+            showTimes(timeInsertion,timeSelection,timeBubble,timeQuick);
 
 
-    } else if (resp == 3) {
-        printf("Finalizando o programa!\n");
+    } else if(resp==2) {
+        printf("\n");
+        printf("Criando um array de nomes aleatorios...\n\n");
+        printf("Ordenando os nomes...\n\n");
+        selectionSortWords(palavras,8000);
+        showTimes(timeInsertion,timeSelection,timeBubble,timeQuick);
+
     } else {
-        printf("Opcao invalida! Tente novamente.\n");
+        printf("\nObrigado por utilizar o programa!\n");
     }
+}
 
     return 0;
 }
+
