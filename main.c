@@ -5,7 +5,7 @@
 
 
 // AFIM DE FACILITAR OS TESTES, APLICAMOS O DEFINE PARA ALTERAR APENAS UMA VEZ
-#define TAMANHO_ARRAY 100000
+#define TAMANHO_ARRAY 15
 #define TAMANHO_PALAVRAS 8000
 
 int arrayNums1[TAMANHO_ARRAY];
@@ -28,6 +28,7 @@ void criarNum() {
     srand(time(NULL)); // Inicializa a semente do gerador de números aleatórios
     for (int i = 0; i < TAMANHO_ARRAY; i++) {
         int num = rand() % TAMANHO_ARRAY;
+        printf("%d ", num);
         arrayNums1[i] = num;
         arrayNums2[i] = num;
         arrayNums3[i] = num;
@@ -104,24 +105,32 @@ void selectionSortWords(char vet[][800], int tam) {
 
 void quickSort(int vet[], int low, int high) {
     clock_t start = clock();
+    printf("low %d --  high %d | QUICK SORT\n", low, high);
     if (low < high) {
         int pi = partition(vet, low, high);
+        printf("pi %d | partition \n", pi);
         quickSort(vet, low, pi - 1);
         quickSort(vet, pi + 1, high);
     }
     clock_t end = clock();
+
     timeQuick = (double)(end - start) / CLOCKS_PER_SEC;
 }
 
 int partition(int arr[], int low, int high) {
-    int pivot = arr[high];
+    int pivo = arr[high];
+    printf("pivo %d | partition \n", pivo);
     int i = (low - 1);
     for (int j = low; j <= high - 1; j++) {
-        if (arr[j] < pivot) {
+        printf("j = %d // arr[j] %d -- i = %d // high -1 %d | partition \n", j,arr[j], i, high - 1);
+        if (arr[j] < pivo) {
             i++;
+        printf("arr[j] %d // %d -- arr[i] %d // %d | partition \n", arr[j], j, arr[i], i);
             swap(&arr[i], &arr[j]);
         }
+        printf("Nao e maior que o pivo \n\n");
     }
+    printf("Saiu do for \n \n");
     swap(&arr[i + 1], &arr[high]);
     return (i + 1);
 }
@@ -153,6 +162,7 @@ int partitionWords(char arr[][800], int low, int high) {
 
 void swap(int *xp, int *yp) {
     int temp = *xp;
+    printf("temp %d -- %d // %x| swap \n", temp, *yp, yp);
     *xp = *yp;
     *yp = temp;
 }
@@ -162,6 +172,13 @@ void swapWords(char xp[][800], char yp[][800]) {
     strcpy(temp, xp[0]);
     strcpy(xp[0], yp[0]);
     strcpy(yp[0], temp);
+}
+
+void mostrarNumeros(int vet[], int tam) {
+    for (int i = 0; i < tam; i++) {
+        printf("%d ", vet[i]);
+    }
+    printf("\n");
 }
 
 void showTimes(double x, double y, double z, double a) {
@@ -196,6 +213,20 @@ int main() {
             selectionSort(arrayNums2, TAMANHO_ARRAY);
             bubbleSort(arrayNums3, TAMANHO_ARRAY);
             quickSort(arrayNums4, 0, TAMANHO_ARRAY -1);
+
+            printf("\nNumeros ordenados:\n");
+            printf("Insertion Sort: ");
+            mostrarNumeros(arrayNums1, TAMANHO_ARRAY);
+
+            printf("Selection Sort: ");
+            mostrarNumeros(arrayNums2, TAMANHO_ARRAY);
+
+            printf("Bubble Sort: ");
+            mostrarNumeros(arrayNums3, TAMANHO_ARRAY);
+
+            printf("Quick Sort: ");
+            mostrarNumeros(arrayNums4, TAMANHO_ARRAY);
+
             showTimes(timeInsertion, timeSelection, timeBubble, timeQuick);
         }
         else if (resp == 2) {
